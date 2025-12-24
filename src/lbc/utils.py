@@ -1,4 +1,4 @@
-from .models import Category, AdType, OwnerType, Sort, Region, Department, City
+from .model import Category, AdType, OwnerType, Sort, Region, Department, City
 from .exceptions import InvalidValue
 
 from typing import Optional, Union, List

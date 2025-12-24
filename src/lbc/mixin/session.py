@@ -1,14 +1,15 @@
-from .models import Proxy
+from ..model import Proxy
 
 from curl_cffi import requests, BrowserTypeLiteral
 from typing import Optional
 import random
 
-class Session:
-    def __init__(self, proxy: Optional[Proxy] = None, impersonate: BrowserTypeLiteral = None, request_verify: bool = True):
+class SessionMixin:
+    def __init__(self, proxy: Optional[Proxy] = None, impersonate: BrowserTypeLiteral = None, request_verify: bool = True, **kwargs):
         self._session = self._init_session(proxy=proxy, impersonate=impersonate, request_verify=request_verify)
         self._proxy = proxy
         self._impersonate = impersonate
+        super().__init__(**kwargs)
 
     def _init_session(self, proxy: Optional[Proxy] = None, impersonate: BrowserTypeLiteral = None, request_verify: bool = True) -> requests.Session:
         """
@@ -47,7 +48,6 @@ class Session:
                 'Sec-Fetch-Site': 'same-site',
             }
         )
-
         if proxy:
             session.proxies = {
                 "http": proxy.url,
@@ -55,7 +55,6 @@ class Session:
             }
 
         session.get("https://www.leboncoin.fr/", verify=request_verify) # Init cookies
-
         return session
 
     @property
