@@ -1,3 +1,7 @@
+## 1.1.1
+### Added
+* Optional `scheme` attribute on the Proxy dataclass, allowing custom proxy URL schemes (#7)
+
 ## 1.1.0
 ### Changed
 * Project structure reorganized: features such as **search**, **user**, and **ad** are now separated using mixins.
